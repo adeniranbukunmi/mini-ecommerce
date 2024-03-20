@@ -5,6 +5,9 @@ body {
     font-style: normal;
 }
 
-#showError, #requiredMsg, #bigShow {
+#showError, #requiredMsg, #bigShow,  #bigDivErrorOne {
+    display: none;
+}
+#bigDivErrorThree #bigDivErrorTwo{
     display: none;
 }

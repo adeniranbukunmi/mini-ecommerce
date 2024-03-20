@@ -24,6 +24,12 @@ rel="stylesheet" />
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 />
+
+<!-- MDB  js-->
+<script
+  type="text/javascript"
+  defer src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
+></script>
 <!-- my css link -->
 <link rel="stylesheet" href="style.css">
 </head>
@@ -39,7 +45,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
       <button class="btn btn-sm  btn-primary my-3 w-100" onclick="addToCart()">Add to cart</button>
 
   </div>
-    <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow-sm p-lg-5 p-3"      style="display:none;" id="bigDiv"> </div>
+    <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow-sm p-lg-5 p-3"      style="display:none;" id="bigDivError"> </div>
  
       <div>
         <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow -sm p-lg-5 p-3"      style="display:none;" id="bigShow" >
@@ -50,36 +56,105 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
           <table id="displayCart" class="table table-success table-striped"></table>
           <button class="btn btn-sm mx-auto my-2 btn-secondary" type="button" onclick="deleteFirstItem()"> Delete  First Item</button>
           <button class="btn  btn-sm mx-auto my-2 btn-success" type="button" onclick="deleteLastItem()">Delete Last Item</button>
-          <button class="btn btn-sm mx-auto my-2 btn-info" type="button" onclick="deleteAnyItem()">Delete Any Item</button>
-          <button class="btn btn-sm mx-auto my-2 btn-dark" type="button" onclick="editItem()">Edit Item</button>
-          <button class="btn  btn-sm mx-auto my-2 btn-warning" type="button" onclick="AddToTheStart()">Add Item To The Start</button>
+          <button class="btn btn-sm mx-auto my-2 btn-info" type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal3" >Delete Any Item</button>
+          <button class="btn btn-sm mx-auto my-2 btn-dark" type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal2">Edit Item</button>
+          <button class="btn  btn-sm mx-auto my-2 btn-warning" type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">Add To Start</button>
           <button class="btn btn-sm mx-auto my-2 btn-danger" type="button" onclick="deleteAll()"> delete All</button>
         </div>
       </div>
-      <!-- boot -->
-      <!-- <div  class="col-sm-6 align-content-center m-auto w-75 " >
-        <div class="card text-center">
-            <div class="card-header">
-                <div><h1>E-commerce</h1>
-            </div>
-            <div class="card-body">
-                <input  class="card-title" type="text" id="items" placeholder="place an order">
-                <button class="btn btn-primary" onclick="addToCart()">Add to cart</button>
-                <div id="showError" class="card-text"></div>
-                <table id="displayCart" class="table table-success table-striped"></table>
-            </div>
-            
-          </div>
-          <div id="showBtn" class="mx-auto gap-5" style="display: none;  margin-top:10px; padding:10px;" >
-            <button class="btn btn-secondary" type="button" onclick="deleteFirstItem()"> Delete  First Item</button>
-            <button class="btn btn-success" type="button" onclick="deleteLastItem()">Delete Last Item</button>
-            <button class="btn btn-info" type="button" onclick="deleteAnyItem()">Delete Any Item</button>
-            <button class="btn btn-dark" type="button" onclick="editItem()">Edit Item</button>
-            <button class="btn btn-warning" type="button" onclick="AddToTheStart()">Add Item To The Start</button>
-            <button class="btn btn-danger" type="button" onclick="deleteAll()"> delete All</button>
-          </div>
+   
+
+<!-- Button trigger modal: this is the button that trigers the modal and all i need do is to copy data-mdb-ripple..... into the button that has add to first as it place holder and remove the below button cos it no longer need--> 
+
+<!-- <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal Add first -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add to the beginning</h5>
+        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
-      -->
+      <div class="modal-body">
+        <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow-sm p-lg-5 p-3"  id="bigDivErrorOne"> </div>
+
+        <div class="form-outline" data-mdb-input-init>
+          <input type="text" id="firstItem" class="form-control shadow-sm " />
+          <label class="form-label" for="form12">Add your item</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+        <!-- modal button that that trigar the function in js  -->
+        <button type="button" class="btn btn-primary" data-mdb-ripple-init onclick="AddToTheStart()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit any -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit any</h5>
+        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- input for edit -->
+        <div class="form-outline" data-mdb-input-init>
+          <input type="number" id="newIndex" class="form-control shadow-sm " />
+          <label class="form-label" for="form12">which number are you editing</label>
+        </div>
+        <div class="form-outline" data-mdb-input-init>
+          <input type="text" id="editedValue" class="form-control shadow-sm " />
+          <label class="form-label" for="form12">type the new item</label>
+        </div>
+        <!-- error div -->
+        <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow-sm p-lg-5 p-3"  id="bigDivErrorTwo"> </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-mdb-ripple-init onclick="editItem()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal delete any -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete any item</h5>
+        <!-- "X" on the modal -->
+        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- input for delete any item -->
+        <div class="form-outline" data-mdb-input-init>
+          <input type="number" id="deleAnyIndex" class="form-control shadow-sm " />
+          <label class="form-label" for="form12">which number are you deleting</label>
+        </div>
+      
+        <!-- error div -->
+        <div class="col-lg-6 col-md-8 col-11 mx-auto  mt-lg-5 mt-3 shadow-sm p-lg-5 p-3"  id="bigDivErrorThree"> </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-mdb-ripple-init onclick="deleteAnyItem()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <script src="mini.js"></script>
 </body>
